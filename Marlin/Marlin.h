@@ -53,6 +53,10 @@
 #endif
 #endif
 #endif
+#else
+#ifdef PROGMEM
+#define MARLIN_PROGMEM PROGMEM
+#endif
 #endif
 
 
