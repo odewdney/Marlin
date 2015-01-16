@@ -60,6 +60,9 @@ LIQUID_TWI2        ?= 0
 # this defines if Wire is needed
 WIRE               ?= 0
 
+# this defines if SdFat is needed
+SDFAT               ?= 0
+
 ############################################################################
 # Below here nothing should be changed...
 
@@ -233,6 +236,9 @@ ifeq ($(WIRE), 1)
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/Wire
 VPATH += $(ARDUINO_INSTALL_DIR)/libraries/Wire/utility
 endif
+ifeq ($(SDFAT), 1)
+VPATH += $(ARDUINO_INSTALL_DIR)/libraries/SdFat
+endif
 else
 VPATH += $(HARDWARE_DIR)/libraries/LiquidCrystal
 VPATH += $(HARDWARE_DIR)/libraries/SPI
@@ -244,6 +250,9 @@ endif
 ifeq ($(WIRE), 1)
 VPATH += $(HARDWARE_DIR)/libraries/Wire
 VPATH += $(HARDWARE_DIR)/libraries/Wire/utility
+endif
+ifeq ($(SDFAT), 1)
+VPATH += $(HARDWARE_DIR)/libraries/SdFat
 endif
 endif
 ifeq ($(HARDWARE_VARIANT), arduino)
@@ -262,8 +271,7 @@ SRC = wiring.c
 VPATH += $(ARDUINO_INSTALL_DIR)/hardware/teensy/cores/teensy
 endif
 CXXSRC = WMath.cpp WString.cpp Print.cpp Marlin_main.cpp	\
-	MarlinSerial.cpp Sd2Card.cpp SdBaseFile.cpp SdFatUtil.cpp	\
-	SdFile.cpp SdVolume.cpp motion_control.cpp planner.cpp		\
+	MarlinSerial.cpp motion_control.cpp planner.cpp		\
 	stepper.cpp temperature.cpp cardreader.cpp ConfigurationStore.cpp \
 	watchdog.cpp SPI.cpp Servo.cpp Tone.cpp ultralcd.cpp digipot_mcp4451.cpp \
 	vector_3.cpp qr_solve.cpp
@@ -277,6 +285,10 @@ endif
 ifeq ($(WIRE), 1)
 SRC += twi.c
 CXXSRC += Wire.cpp
+endif
+
+ifeq ($(SDFAT), 1)
+CXXSRC += Sd2Card.cpp SdBaseFile.cpp SdFatUtil.cpp SdFile.cpp SdVolume.cpp
 endif
 
 #Check for Arduino 1.0.0 or higher and use the correct sourcefiles for that version

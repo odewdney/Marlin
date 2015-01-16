@@ -527,6 +527,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 //LCD and SD support
+// If you are enabling SDSUPPORT then dont forget to add the SdFat library
+// to your ARDUINO library folder ( found in Marlin/ArduinoAddons/Arduino_1.0.x/libraries/SdFat
+//
 //#define ULTRA_LCD  //general LCD support, also 16x2
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
 //#define SDSUPPORT // Enable SD Card Support in Hardware Console
